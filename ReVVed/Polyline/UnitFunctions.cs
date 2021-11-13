@@ -31,11 +31,15 @@ namespace RVVD.Polyline
             Units altUnits = null;
 
             if(adoc.DisplayUnitSystem == DisplayUnit.METRIC)
-                altUnits = new Units(UnitSystem.Imperial);
-            else
-                altUnits = new Units(UnitSystem.Metric);
+      {
+        altUnits = new Units(UnitSystem.Imperial);
+      }
+      else
+      {
+        altUnits = new Units(UnitSystem.Metric);
+      }
 
-            return UnitFormatUtils.Format(altUnits, UnitType.UT_Length, the_length, true, false); 
+      return UnitFormatUtils.Format(altUnits, UnitType.UT_Length, the_length, true, false); 
         }
 
         /// <summary>
@@ -50,11 +54,15 @@ namespace RVVD.Polyline
             Units altUnits = null;
 
             if (dispunits == DisplayUnit.METRIC)
-                altUnits = new Units(UnitSystem.Metric);
-            else
-                altUnits = new Units(UnitSystem.Imperial);
+      {
+        altUnits = new Units(UnitSystem.Metric);
+      }
+      else
+      {
+        altUnits = new Units(UnitSystem.Imperial);
+      }
 
-            return UnitFormatUtils.Format(altUnits, UnitType.UT_Length, the_length, true, false);
+      return UnitFormatUtils.Format(altUnits, UnitType.UT_Length, the_length, true, false);
         }
     }
 }

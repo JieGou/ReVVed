@@ -72,9 +72,11 @@ namespace RVVD.Merge_Text
                         }
                     }
                     else
-                        throw new NotSupportedException("Found unhandled block type in FlowDocument: " + theBlock.GetType().ToString());
+          {
+            throw new NotSupportedException("Found unhandled block type in FlowDocument: " + theBlock.GetType().ToString());
+          }
 
-                    isText = false;
+          isText = false;
                     isList = false;
                 }
 
@@ -100,8 +102,11 @@ namespace RVVD.Merge_Text
         private void ConvertList(List _theList, bool _topLevelList)
         {
             if (_topLevelList)
-                listStartNumber = _theList.StartIndex;
-            ListType old_list_type = ListType.None;
+      {
+        listStartNumber = _theList.StartIndex;
+      }
+
+      ListType old_list_type = ListType.None;
 
             switch (_theList.MarkerStyle)
             {
@@ -140,19 +145,26 @@ namespace RVVD.Merge_Text
                         currentIndent = old_indent;
                         currentListType = old_list_type;
                         if (_topLevelList)
-                            listStartNumber = old_lsn;
-                    }
+            {
+              listStartNumber = old_lsn;
+            }
+          }
                     else
-                        throw new NotSupportedException("ConvertList found unhandled block type in FlowDocument: " + theBlock.GetType().ToString());
-                }
+          {
+            throw new NotSupportedException("ConvertList found unhandled block type in FlowDocument: " + theBlock.GetType().ToString());
+          }
+        }
             }
         }
 
         private void ConvertParagraph(Paragraph _theParagraph)
         {
             if (currentIndent == -1)
-                currentIndent = (int)(_theParagraph.TextIndent / INDENT);
-            foreach (Inline inl in _theParagraph.Inlines)
+      {
+        currentIndent = (int)(_theParagraph.TextIndent / INDENT);
+      }
+
+      foreach (Inline inl in _theParagraph.Inlines)
             {
                 checkFormatting(inl);
             }
@@ -186,16 +198,31 @@ namespace RVVD.Merge_Text
             {
                 Run r = inl as Run;
                 if (r.FontWeight == FontWeights.Bold)
-                    isBold = true;
-                if (r.TextDecorations != DependencyProperty.UnsetValue && r.TextDecorations.Count > 0)
-                    isUnderline = true;
-                if (r.FontStyle == FontStyles.Italic)
-                    isItalic = true;
-                if (r.BaselineAlignment == BaselineAlignment.Superscript)
-                    isSuperscript = true;
-                if (r.BaselineAlignment == BaselineAlignment.Subscript)
-                    isSubscript = true;
-                convertRun(r);
+        {
+          isBold = true;
+        }
+
+        if (r.TextDecorations != DependencyProperty.UnsetValue && r.TextDecorations.Count > 0)
+        {
+          isUnderline = true;
+        }
+
+        if (r.FontStyle == FontStyles.Italic)
+        {
+          isItalic = true;
+        }
+
+        if (r.BaselineAlignment == BaselineAlignment.Superscript)
+        {
+          isSuperscript = true;
+        }
+
+        if (r.BaselineAlignment == BaselineAlignment.Subscript)
+        {
+          isSubscript = true;
+        }
+
+        convertRun(r);
             }
         }
 
@@ -207,10 +234,15 @@ namespace RVVD.Merge_Text
             foreach (char c in _run.Text)
             {
                 if (Char.IsLetterOrDigit(c))
-                    System.Diagnostics.Debug.Write(c);
-                else
-                    System.Diagnostics.Debug.Write(" " + Char.GetUnicodeCategory(c).ToString() + " ");
-                setFormats();
+        {
+          System.Diagnostics.Debug.Write(c);
+        }
+        else
+        {
+          System.Diagnostics.Debug.Write(" " + Char.GetUnicodeCategory(c).ToString() + " ");
+        }
+
+        setFormats();
                 //TODO:what if user inputs a tab into RTB
                 txtRange.Start++;
             }
@@ -230,7 +262,9 @@ namespace RVVD.Merge_Text
             frmtTxt.SetSubscriptStatus(txtRange, isSubscript);
             frmtTxt.SetSuperscriptStatus(txtRange, isSuperscript);
             if (listStartNumber != -1 && currentListType != ListType.Bullet)
-                frmtTxt.SetListStartNumber(txtRange, listStartNumber);
-        }
+      {
+        frmtTxt.SetListStartNumber(txtRange, listStartNumber);
+      }
+    }
     }
 }

@@ -40,18 +40,25 @@ namespace Project_Commander
             InitializeComponent();
             m_XMLfilepath = RVVD.Constants.RevvedBasePath + "ProjectCommander.xml";
             if (File.Exists(m_XMLfilepath))
-                m_lastModified = System.IO.File.GetLastWriteTime(m_XMLfilepath);
-            else
-                m_lastModified = DateTime.Now;
-        }
+      {
+        m_lastModified = System.IO.File.GetLastWriteTime(m_XMLfilepath);
+      }
+      else
+      {
+        m_lastModified = DateTime.Now;
+      }
+    }
 
         public void UpdateProject(string projName)
         {
             if (!File.Exists(m_XMLfilepath))                                                         //if no database exists
             {
                 if (dockpanel1.IsInitialized)
-                    dockpanel1.BeginInit();
-                XmlDataProvider xdp = dockPage.FindResource("xmlsource") as XmlDataProvider;
+        {
+          dockpanel1.BeginInit();
+        }
+
+        XmlDataProvider xdp = dockPage.FindResource("xmlsource") as XmlDataProvider;
                 xdp.Document = new System.Xml.XmlDocument();
                 System.Xml.XmlNode node = createBlankNode(m_projectName);
                 dockpanel1.DataContext = node;
@@ -63,18 +70,26 @@ namespace Project_Commander
             {
                 m_lastModified = System.IO.File.GetLastWriteTime(m_XMLfilepath);
                 if(projName != null)
-                    m_projectName = projName;
+        {
+          m_projectName = projName;
+        }
 
-                if (dockpanel1.IsInitialized)
-                    dockpanel1.BeginInit();
-                XmlDataProvider xdp = dockPage.FindResource("xmlsource") as XmlDataProvider;
+        if (dockpanel1.IsInitialized)
+        {
+          dockpanel1.BeginInit();
+        }
+
+        XmlDataProvider xdp = dockPage.FindResource("xmlsource") as XmlDataProvider;
                 xdp.Document = new System.Xml.XmlDocument();
                 xdp.Document.Load(m_XMLfilepath);
 
                 System.Xml.XmlNode node = xdp.Document.SelectSingleNode("//Project[@ProjectID='" + safeProjectName + "']");
                 if (node == null)
-                    node = createBlankNode(m_projectName);
-                dockpanel1.DataContext = node;
+        {
+          node = createBlankNode(m_projectName);
+        }
+
+        dockpanel1.DataContext = node;
                 dockpanel1.EndInit();
             }
 

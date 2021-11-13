@@ -46,17 +46,25 @@ namespace RVVD.Polyline
 
                 ElementArray elar = locationcurve.get_ElementsAtJoin(0);    //TODO: also get arcs, circles, etc
                 if (elar.IsEmpty)
-                    joinedatstart = false;
-                else
-                    joinedatstart = true;
+        {
+          joinedatstart = false;
+        }
+        else
+        {
+          joinedatstart = true;
+        }
 
-                elar = locationcurve.get_ElementsAtJoin(1);
+        elar = locationcurve.get_ElementsAtJoin(1);
                 if (elar.IsEmpty)
-                    joinedatend = false;
-                else
-                    joinedatend = true;
+        {
+          joinedatend = false;
+        }
+        else
+        {
+          joinedatend = true;
+        }
 
-                Debug.WriteLine("Line Segment:" + startpoint.X.ToString() + " - " + startpoint.Y.ToString() + " - " + startpoint.Z.ToString() +
+        Debug.WriteLine("Line Segment:" + startpoint.X.ToString() + " - " + startpoint.Y.ToString() + " - " + startpoint.Z.ToString() +
                     " End: " + endpoint.X.ToString() + " - " + endpoint.Y.ToString() + " - " + endpoint.Z.ToString());
             }
         }
@@ -83,8 +91,11 @@ namespace RVVD.Polyline
                     axis = p.XVec;
                 }
                 else
-                    axis = p.Normal.CrossProduct(XYZ.BasisZ);
-                Debug.Print("Axis #1: {0} at angle {1}", axis.ToString(), a);
+        {
+          axis = p.Normal.CrossProduct(XYZ.BasisZ);
+        }
+
+        Debug.Print("Axis #1: {0} at angle {1}", axis.ToString(), a);
                 t = Transform.CreateRotationAtPoint(axis, a, XYZ.Zero);
             }
 
@@ -105,8 +116,11 @@ namespace RVVD.Polyline
                     axis = p.Normal;
                 }
                 else
-                    axis = p.YVec.CrossProduct(p.XVec);
-                Debug.Print("Axis #2: {0} at angle {1}", axis.ToString(), a1);
+        {
+          axis = p.YVec.CrossProduct(p.XVec);
+        }
+
+        Debug.Print("Axis #2: {0} at angle {1}", axis.ToString(), a1);
                 t1 = Transform.CreateRotationAtPoint(axis, a1, XYZ.Zero);
             }
 
@@ -136,13 +150,19 @@ namespace RVVD.Polyline
             if (startpoint.IsAlmostEqualTo(ls.startpoint) || startpoint.IsAlmostEqualTo(ls.endpoint))
             {
                 joinedatstart = true;
-                if (isEndLine) joinedatend = false;
-            }
+                if (isEndLine)
+        {
+          joinedatend = false;
+        }
+      }
             if (endpoint.IsAlmostEqualTo(ls.startpoint) || endpoint.IsAlmostEqualTo(ls.endpoint))
             {
                 joinedatend = true;
-                if (isEndLine) joinedatstart = false;
-            }
+                if (isEndLine)
+        {
+          joinedatstart = false;
+        }
+      }
         }
 
         /// <summary>
@@ -182,8 +202,11 @@ namespace RVVD.Polyline
         internal bool Equals(LineSegment rhs)
         {
             if (startpoint.IsAlmostEqualTo(rhs.startpoint) && endpoint.IsAlmostEqualTo(rhs.endpoint) && (line_length == rhs.line_length))
-                return true;
-            return false;
+      {
+        return true;
+      }
+
+      return false;
         }
 
         internal bool joinedAtStart

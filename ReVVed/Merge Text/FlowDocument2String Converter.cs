@@ -33,8 +33,10 @@ namespace RVVD.Merge_Text
                     ConvertList(s.Blocks.FirstBlock as List);
                 }
                 else
-					throw new NotSupportedException("FlowDocument2String_Converter Found unhandled block type in FlowDocument: " + theBlock.GetType().ToString());
-			}
+        {
+          throw new NotSupportedException("FlowDocument2String_Converter Found unhandled block type in FlowDocument: " + theBlock.GetType().ToString());
+        }
+      }
 
 			return theStrgBldr.ToString();
 		}
@@ -54,8 +56,10 @@ namespace RVVD.Merge_Text
 						ConvertList(theBlock as List);
 					}
 					else
-						throw new NotSupportedException("FlowDocument2String_Converter found unhandled block type in FlowDocument: " + theBlock.GetType().ToString());
-				}
+          {
+            throw new NotSupportedException("FlowDocument2String_Converter found unhandled block type in FlowDocument: " + theBlock.GetType().ToString());
+          }
+        }
 			}
 		}
 

@@ -52,8 +52,10 @@ namespace RVVD
                     Line l = lc.Curve as Line;
 
                     if (e.Category.Id.IntegerValue != (int)BuiltInCategory.OST_Lines || l == null) // Filter the non-line type and non-line elements in the selection set
-                        sel.Erase(e);
-                }
+          {
+            sel.Erase(e);
+          }
+        }
 
                 if (sel.IsEmpty || sel.Size < 2)
                 {
@@ -142,20 +144,32 @@ namespace RVVD
         public bool IsCommandAvailable(UIApplication appdata, CategorySet selectCatagories)
         {
             if (appdata.Application.Documents.Size == 0)
-                return false;
+      {
+        return false;
+      }
 
-            if (appdata.ActiveUIDocument.Document.IsFamilyDocument)
-                return false;
+      if (appdata.ActiveUIDocument.Document.IsFamilyDocument)
+      {
+        return false;
+      }
 
-            if (appdata.ActiveUIDocument.Selection.GetElementIds().Count < 2)
-                return false;
-            if (selectCatagories.Size > 1)
-                return false;
-            foreach (Category c in selectCatagories)
+      if (appdata.ActiveUIDocument.Selection.GetElementIds().Count < 2)
+      {
+        return false;
+      }
+
+      if (selectCatagories.Size > 1)
+      {
+        return false;
+      }
+
+      foreach (Category c in selectCatagories)
             {
                 if (c.Id.IntegerValue == (int)BuiltInCategory.OST_Lines)
-                    return true;
-            }
+        {
+          return true;
+        }
+      }
 
             return false;
         }

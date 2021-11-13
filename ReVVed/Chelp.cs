@@ -2,60 +2,88 @@
 
 namespace RVVD
 {
+  /// <summary>
+  /// 上下文帮助类<para/>
+  /// Contextual help is only supported in Revit 2013 and up
+  /// </summary>
+  internal class Chelp
+  {
+    internal static ContextualHelp coco_help;
+    internal static ContextualHelp of_help;
+    internal static ContextualHelp pc_help;
+    internal static ContextualHelp mt_help;
+    internal static ContextualHelp pl_help;
+    internal static ContextualHelp wl_help;
+    internal static ContextualHelp cc_help;
+    internal static ContextualHelp gf_help;
+    internal static ContextualHelp rev_help;
+    internal static ContextualHelp opt_help;
+    internal static ContextualHelp help_help; //opens to default page
+
     /// <summary>
-    /// Contextual help is only supported in Revit 2013 and up
+    /// 初始化帮助
     /// </summary>
-    class Chelp
+    internal static void initializeHelp()
     {
-        internal static ContextualHelp coco_help;
-        internal static ContextualHelp of_help;
-        internal static ContextualHelp pc_help;
-        internal static ContextualHelp mt_help;
-        internal static ContextualHelp pl_help;
-        internal static ContextualHelp wl_help;
-        internal static ContextualHelp cc_help;
-        internal static ContextualHelp gf_help;
-        internal static ContextualHelp rev_help;
-        internal static ContextualHelp opt_help;
-        internal static ContextualHelp help_help; //opens to default page
+      //Contents
+      string HelpPath = System.IO.Directory.GetParent(Properties.Settings.Default.AddinPath).FullName;
+      string helpFile = LocalizationProvider.GetLocalizedValue<string>("HELP_FILE");
 
-        internal static void initializeHelp()
-        {
-            string HelpPath = System.IO.Directory.GetParent(Properties.Settings.Default.AddinPath).FullName; //Contents
-            string helpFile = LocalizationProvider.GetLocalizedValue<string>("HELP_FILE");
+      string helpFilePath = "file:///" + HelpPath + helpFile;
+      coco_help = new ContextualHelp(ContextualHelpType.ChmFile, helpFilePath)
+      {
+        HelpTopicUrl = @"ComponentCommander.htm"
+      };
 
-            coco_help = new ContextualHelp(ContextualHelpType.ChmFile, HelpPath + helpFile);
-            coco_help.HelpTopicUrl = @"ComponentCommander.htm";
+      of_help = new ContextualHelp(ContextualHelpType.ChmFile, helpFilePath)
+      {
+        HelpTopicUrl = @"OpenFolder.htm"
+      };
 
-            of_help = new ContextualHelp(ContextualHelpType.ChmFile, HelpPath + helpFile);
-            of_help.HelpTopicUrl = @"OpenFolder.htm";
+      pc_help = new ContextualHelp(ContextualHelpType.ChmFile, helpFilePath)
+      {
+        HelpTopicUrl = @"ProjectCommander.htm"
+      };
 
-            pc_help = new ContextualHelp(ContextualHelpType.ChmFile, HelpPath + helpFile);
-            pc_help.HelpTopicUrl = @"ProjectCommander.htm";
+      mt_help = new ContextualHelp(ContextualHelpType.ChmFile, helpFilePath)
+      {
+        HelpTopicUrl = @"MergeText.htm"
+      };
 
-            mt_help = new ContextualHelp(ContextualHelpType.ChmFile, HelpPath + helpFile);
-            mt_help.HelpTopicUrl = @"MergeText.htm";
+      pl_help = new ContextualHelp(ContextualHelpType.ChmFile, helpFilePath)
+      {
+        HelpTopicUrl = @"Polyline.htm"
+      };
 
-            pl_help = new ContextualHelp(ContextualHelpType.ChmFile, HelpPath + helpFile);
-            pl_help.HelpTopicUrl = @"Polyline.htm";
+      wl_help = new ContextualHelp(ContextualHelpType.ChmFile, helpFilePath)
+      {
+        HelpTopicUrl = @"WebLink.htm"
+      };
 
-            wl_help = new ContextualHelp(ContextualHelpType.ChmFile, HelpPath + helpFile);
-            wl_help.HelpTopicUrl = @"WebLink.htm";
+      cc_help = new ContextualHelp(ContextualHelpType.ChmFile, helpFilePath)
+      {
+        HelpTopicUrl = @"ChangeCase.htm"
+      };
 
-            cc_help = new ContextualHelp(ContextualHelpType.ChmFile, HelpPath + helpFile);
-            cc_help.HelpTopicUrl = @"ChangeCase.htm";
+      gf_help = new ContextualHelp(ContextualHelpType.ChmFile, helpFilePath)
+      {
+        HelpTopicUrl = @"GridFlip.htm"
+      };
 
-            gf_help = new ContextualHelp(ContextualHelpType.ChmFile, HelpPath + helpFile);
-            gf_help.HelpTopicUrl = @"GridFlip.htm";
+      rev_help = new ContextualHelp(ContextualHelpType.ChmFile, helpFilePath)
+      {
+        HelpTopicUrl = @"Revisionist.htm"
+      };
 
-            rev_help = new ContextualHelp(ContextualHelpType.ChmFile, HelpPath + helpFile);
-            rev_help.HelpTopicUrl = @"Revisionist.htm";
+      opt_help = new ContextualHelp(ContextualHelpType.ChmFile, helpFilePath)
+      {
+        HelpTopicUrl = @"Other.htm"
+      };
 
-            opt_help = new ContextualHelp(ContextualHelpType.ChmFile, HelpPath + helpFile);
-            opt_help.HelpTopicUrl = @"Other.htm";
-
-            help_help = new ContextualHelp(ContextualHelpType.ChmFile, HelpPath + helpFile);
-            help_help.HelpTopicUrl = @"Welcome.htm";
-        }
+      help_help = new ContextualHelp(ContextualHelpType.Url, helpFilePath)
+      {
+        HelpTopicUrl = @"Welcome.html"
+      };
     }
+  }
 }

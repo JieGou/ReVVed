@@ -40,9 +40,11 @@ namespace RVVD.Merge_Text
 			System.Diagnostics.Debug.WriteLine("Convert --------------------------------------");
 			frmtTxt = _value.GetFormattedText();
 			if (frmtTxt == null)
-				return null;
+      {
+        return null;
+      }
 
-            System.Diagnostics.Debug.WriteLine("Convert length: " + frmtTxt.GetPlainText().Length.ToString());
+      System.Diagnostics.Debug.WriteLine("Convert length: " + frmtTxt.GetPlainText().Length.ToString());
 			
 			flow_doc.FontSize = 16;
             flow_doc.Foreground = System.Windows.Media.Brushes.Black;
@@ -82,16 +84,21 @@ namespace RVVD.Merge_Text
 				{
 					int indent = frmtTxt.GetIndentLevel(txtRange);
 					if(currentIndent == -1)
-						currentIndent = indent;
-					
-					if(isText)
+          {
+            currentIndent = indent;
+          }
+
+          if (isText)
 					{
 						completeCurrentRun();
 						if(currentParagraph.Inlines.Count != 0)
 						{
 							if(currentParagraph.Inlines.LastInline.GetType() == typeof(LineBreak))
-								currentParagraph.Inlines.Remove(currentParagraph.Inlines.LastInline);
-							flow_doc.Blocks.Add(currentParagraph);
+              {
+                currentParagraph.Inlines.Remove(currentParagraph.Inlines.LastInline);
+              }
+
+              flow_doc.Blocks.Add(currentParagraph);
 							currentParagraph = new Paragraph();
 							System.Diagnostics.Debug.WriteLine("Added paragraph to flowdocument.");
 						}
@@ -160,8 +167,10 @@ namespace RVVD.Merge_Text
 				}
 				
 				if (!currentChar.Equals('\r') && !currentChar.Equals('\n'))
-					textRun.Append(currentChar);
-				else if(isText)
+        {
+          textRun.Append(currentChar);
+        }
+        else if(isText)
 				{
 					completeCurrentRun();
                     flow_doc.Blocks.Add(currentParagraph);
@@ -188,8 +197,11 @@ namespace RVVD.Merge_Text
 				if(currentParagraph.Inlines.Count != 0)
 				{
 					if(currentParagraph.Inlines.LastInline.GetType() == typeof(LineBreak))
-						currentParagraph.Inlines.Remove(currentParagraph.Inlines.LastInline);
-                    flow_doc.Blocks.Add(currentParagraph);
+          {
+            currentParagraph.Inlines.Remove(currentParagraph.Inlines.LastInline);
+          }
+
+          flow_doc.Blocks.Add(currentParagraph);
 					System.Diagnostics.Debug.WriteLine("Added final paragraph to flowdocument.");
 				}
 			}
@@ -319,9 +331,11 @@ namespace RVVD.Merge_Text
 					c = frmtTxt.GetPlainText(txtRange)[0];
 				}
 				else if(indent < checkIndent)
-					return thisList;//return list
-				
-				if (c.Equals('\r') || c.Equals('\n'))
+        {
+          return thisList;//return list
+        }
+
+        if (c.Equals('\r') || c.Equals('\n'))
 				{
 					//	add listitem to this list
 					completeCurrentRun();
@@ -331,9 +345,11 @@ namespace RVVD.Merge_Text
 					currentParagraph = new Paragraph();
 				}
 				else
-					textRun.Append(c);
-				
-				txtRange.Start++;
+        {
+          textRun.Append(c);
+        }
+
+        txtRange.Start++;
 			}
 			
 			return thisList;
@@ -345,9 +361,11 @@ namespace RVVD.Merge_Text
 		void completeCurrentRun()
 		{
 			if(textRun.Length == 0)
-				return;
-			
-			Inline i = new Run(textRun.ToString());
+      {
+        return;
+      }
+
+      Inline i = new Run(textRun.ToString());
 			System.Diagnostics.Debug.WriteLine("Created run: " + textRun.ToString());
 			if(isSuperscript)
 			{
@@ -361,13 +379,21 @@ namespace RVVD.Merge_Text
 			}
 
 			if(isBold)
-				i.FontWeight = FontWeights.Bold;
-			if(isUnderline)
-				i.TextDecorations = TextDecorations.Underline;
-			if(isItalic)
-				i.FontStyle = FontStyles.Italic;
+      {
+        i.FontWeight = FontWeights.Bold;
+      }
 
-            currentParagraph.Inlines.Add(i);
+      if (isUnderline)
+      {
+        i.TextDecorations = TextDecorations.Underline;
+      }
+
+      if (isItalic)
+      {
+        i.FontStyle = FontStyles.Italic;
+      }
+
+      currentParagraph.Inlines.Add(i);
 
             if (!isList)
             {

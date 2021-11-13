@@ -99,8 +99,10 @@ namespace RVVD
         protected virtual void OnDataSourceChanged(EventArgs e)
         {
             if (DataSourceChanged != null)
-                DataSourceChanged(this, e);
-        }
+      {
+        DataSourceChanged(this, e);
+      }
+    }
 
 [
 Category("Behavior"),
@@ -168,8 +170,10 @@ Description("Controls whether the listview should strip RTF formatting")
         protected virtual void OnDataMemberChanged(EventArgs e)
         {
             if (DataMemberChanged != null)
-                DataMemberChanged(this, e);
-        }
+      {
+        DataMemberChanged(this, e);
+      }
+    }
 
 
         /// <summary>
@@ -545,16 +549,18 @@ Description("Controls whether the listview should strip RTF formatting")
         private void SetSelectedIndex(int index)
         {
             if (index == -1)
-                return;
-            // Avoid recursion - we keep track of when we're already in the
-            // middle of changing the index, in case the CurrencyManager
-            // decides to call us back as a result of a change already in
-            // progress. (Not sure if this will ever actually happen - the
-            // OnSelectedIndexChanged method uses the m_changingIndex flag to
-            // avoid modifying the CurrencyManager's Position when the change
-            // in selection was caused by the CurrencyManager in the first
-            // place. But it doesn't hurt to be defensive...)
-            if (!m_changingIndex)
+      {
+        return;
+      }
+      // Avoid recursion - we keep track of when we're already in the
+      // middle of changing the index, in case the CurrencyManager
+      // decides to call us back as a result of a change already in
+      // progress. (Not sure if this will ever actually happen - the
+      // OnSelectedIndexChanged method uses the m_changingIndex flag to
+      // avoid modifying the CurrencyManager's Position when the change
+      // in selection was caused by the CurrencyManager in the first
+      // place. But it doesn't hurt to be defensive...)
+      if (!m_changingIndex)
             {
                 m_changingIndex = true;
                 SelectedItems.Clear();

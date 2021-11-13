@@ -51,14 +51,18 @@ namespace RVVD.Project_Commander
             bool result = false;
 
             if (!m_viewSource.View.MoveCurrentToFirst())
-                return false;
+      {
+        return false;
+      }
 
-            do
+      do
             {
                 System.Data.DataRowView pr = m_viewSource.View.CurrentItem as System.Data.DataRowView;
                 if (pr.Row.ItemArray[2].ToString() != safeProjectName)
-                    m_viewSource.View.MoveCurrentToNext();
-                else
+        {
+          m_viewSource.View.MoveCurrentToNext();
+        }
+        else
                 {
                     System.Data.DataRowView row = m_viewSource.View.CurrentItem as System.Data.DataRowView;
                     m_projectID = row.Row.ItemArray[3].ToString(); //set project id #
@@ -82,11 +86,15 @@ namespace RVVD.Project_Commander
                 TaskDialogResult tdr = td.Show();
 
                 if (tdr == TaskDialogResult.CommandLink1)
-                    this.Close();
-            }
-            else
-                this.Close();
+        {
+          this.Close();
         }
+      }
+            else
+      {
+        this.Close();
+      }
+    }
 
         private void b_AddMilestone_Click(object sender, RoutedEventArgs e)
         {

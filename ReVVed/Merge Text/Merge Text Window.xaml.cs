@@ -42,9 +42,11 @@ namespace RVVD.Merge_Text
         private void cbCase_Click(object sender, SelectionChangedEventArgs e)
         {
             if (cb_Case.SelectedItem == null)
-                return;
+      {
+        return;
+      }
 
-            ComboBoxItem cbi = cb_Case.SelectedItem as ComboBoxItem;
+      ComboBoxItem cbi = cb_Case.SelectedItem as ComboBoxItem;
             var textInfo = System.Globalization.CultureInfo.CurrentUICulture.TextInfo;
 
             if (cbi == null || (string)cbi.Tag == "none")
@@ -114,22 +116,34 @@ namespace RVVD.Merge_Text
                 noteListBox.EndInit();
                 update_preview();
                 if (x - 1 <= 0)
-                    UpButton.IsEnabled = false;
-                DownButton.IsEnabled = true;
+        {
+          UpButton.IsEnabled = false;
+        }
+
+        DownButton.IsEnabled = true;
             }
         }
 
         private void noteList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (noteListBox.SelectedIndex == 0)
-                UpButton.IsEnabled = false;
-            else
-                UpButton.IsEnabled = true;
-            if (noteListBox.SelectedIndex == noteListBox.Items.Count - 1)
-                DownButton.IsEnabled = false;
-            else
-                DownButton.IsEnabled = true;
-        }
+      {
+        UpButton.IsEnabled = false;
+      }
+      else
+      {
+        UpButton.IsEnabled = true;
+      }
+
+      if (noteListBox.SelectedIndex == noteListBox.Items.Count - 1)
+      {
+        DownButton.IsEnabled = false;
+      }
+      else
+      {
+        DownButton.IsEnabled = true;
+      }
+    }
 
         private void DownButton_Click(object sender, RoutedEventArgs e)
         {
@@ -144,29 +158,38 @@ namespace RVVD.Merge_Text
                 noteListBox.EndInit();
                 update_preview();
                 if (x >= noteListBox.Items.Count - 1)
-                    DownButton.IsEnabled = false;
-                UpButton.IsEnabled = true;
+        {
+          DownButton.IsEnabled = false;
+        }
+
+        UpButton.IsEnabled = true;
             }
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
             if (_notesList.Count <= 2)
-                return;
+      {
+        return;
+      }
 
-            Element el = null;
+      Element el = null;
 
             if (e != null)
             {
                 Button btn = e.Source as Button;
                 var q = _notesList.Where(X => X._theID == (int)btn.Tag).FirstOrDefault();
                 if (q != null)
-                    el = q as Element;
-            }
+        {
+          el = q as Element;
+        }
+      }
             else
-                el = noteListBox.SelectedItem as Element;
+      {
+        el = noteListBox.SelectedItem as Element;
+      }
 
-            if (el != null)
+      if (el != null)
             {
                 noteListBox.BeginInit();
                 _notesList.Remove(el);
@@ -178,12 +201,18 @@ namespace RVVD.Merge_Text
         private void noteList_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.NumPad8 || e.Key == Key.Up)
-                UpButton_Click(null, null);
-            else if (e.Key == Key.NumPad2 || e.Key == Key.Down)
-                DownButton_Click(null, null);
-            else if (e.Key == Key.Delete)
-                RemoveButton_Click(null, null);
-        }
+      {
+        UpButton_Click(null, null);
+      }
+      else if (e.Key == Key.NumPad2 || e.Key == Key.Down)
+      {
+        DownButton_Click(null, null);
+      }
+      else if (e.Key == Key.Delete)
+      {
+        RemoveButton_Click(null, null);
+      }
+    }
 
         private void FlowDocumentScrollViewer_Unloaded(object sender, RoutedEventArgs e)
         {

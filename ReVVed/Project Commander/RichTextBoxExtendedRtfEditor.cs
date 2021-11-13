@@ -17,8 +17,11 @@ namespace Extended.Windows.Forms.Design
 		public override System.Drawing.Design.UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
 		{
 			if (context==null)
-				return base.GetEditStyle(null);
-			return System.Drawing.Design.UITypeEditorEditStyle.Modal;
+      {
+        return base.GetEditStyle(null);
+      }
+
+      return System.Drawing.Design.UITypeEditorEditStyle.Modal;
 		}
 
 		public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
@@ -30,10 +33,16 @@ namespace Extended.Windows.Forms.Design
 				{
 					RichTextBoxExtendedRtfEditorForm dialog= new RichTextBoxExtendedRtfEditorForm();
 					if (value is String)
-						dialog.Value= (string)value;	
-					if (edSrv.ShowDialog(dialog)==System.Windows.Forms.DialogResult.OK)
-						value= dialog.Value;
-					dialog.Dispose();
+          {
+            dialog.Value= (string)value;
+          }
+
+          if (edSrv.ShowDialog(dialog)==System.Windows.Forms.DialogResult.OK)
+          {
+            value = dialog.Value;
+          }
+
+          dialog.Dispose();
 					dialog= null;
 				}
 			}

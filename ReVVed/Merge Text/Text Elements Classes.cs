@@ -32,8 +32,11 @@ namespace RVVD.Merge_Text
                     Parameter fontp = note.TextNoteType.get_Parameter(BuiltInParameter.TEXT_FONT);
                     string font = fontp.AsString();
                     if(theFont == string.Empty)
-                        theFont = font;
-                    FlowDocument fd = fdConv.Convert(note);
+          {
+            theFont = font;
+          }
+
+          FlowDocument fd = fdConv.Convert(note);
                     _theList.Add(new Element() { _theID = ID, _theFont = font, _theDoc = fd });
                 }
             }

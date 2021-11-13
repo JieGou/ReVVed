@@ -616,21 +616,32 @@ namespace Extended.Windows.Forms
 		protected virtual void OnStamp(EventArgs e)
 		{
 			if(Stamp != null)
-				Stamp(this, e);
+      {
+        Stamp(this, e);
+      }
 
-			switch(StampAction)
+      switch (StampAction)
 			{
 				case StampActions.EditedBy:
 				{
 					StringBuilder stamp = new StringBuilder(""); //holds our stamp text
-					if(rtb1.Text.Length > 0) stamp.Append("\r\n\r\n"); //add two lines for space
-					stamp.Append("Edited by "); 
+					if(rtb1.Text.Length > 0)
+            {
+              stamp.Append("\r\n\r\n"); //add two lines for space
+            }
+
+            stamp.Append("Edited by "); 
 					//use the CurrentPrincipal name if one exsist else use windows logon username
 					if(Thread.CurrentPrincipal == null || Thread.CurrentPrincipal.Identity == null || Thread.CurrentPrincipal.Identity.Name.Length <= 0)
-						stamp.Append(Environment.UserName);
-					else
-						stamp.Append(Thread.CurrentPrincipal.Identity.Name);
-					stamp.Append(" on " + DateTime.Now.ToLongDateString() + "\r\n");
+            {
+              stamp.Append(Environment.UserName);
+            }
+            else
+            {
+              stamp.Append(Thread.CurrentPrincipal.Identity.Name);
+            }
+
+            stamp.Append(" on " + DateTime.Now.ToLongDateString() + "\r\n");
 			
 					rtb1.SelectionLength = 0; //unselect everything basicly
 					rtb1.SelectionStart = rtb1.Text.Length; //start new selection at the end of the text
@@ -642,8 +653,12 @@ namespace Extended.Windows.Forms
 				case StampActions.DateTime:
 				{
 					StringBuilder stamp = new StringBuilder(""); //holds our stamp text
-					if(rtb1.Text.Length > 0) stamp.Append("\r\n\r\n"); //add two lines for space
-					stamp.Append(DateTime.Now.ToLongDateString() + "\r\n");
+					if(rtb1.Text.Length > 0)
+            {
+              stamp.Append("\r\n\r\n"); //add two lines for space
+            }
+
+            stamp.Append(DateTime.Now.ToLongDateString() + "\r\n");
 					rtb1.SelectionLength = 0; //unselect everything basicly
 					rtb1.SelectionStart = rtb1.Text.Length; //start new selection at the end of the text
 					rtb1.SelectionColor = this.StampColor; //make the selection blue
@@ -666,13 +681,15 @@ namespace Extended.Windows.Forms
         protected virtual void OnSave(EventArgs e)
         {
             if (Save != null)
-                Save(this, e);
-            //if(sfd1.ShowDialog() == DialogResult.OK && sfd1.FileName.Length > 0)
-            //    if(System.IO.Path.GetExtension(sfd1.FileName).ToLower().Equals(".rtf"))
-            //        rtb1.SaveFile(sfd1.FileName);
-            //    else
-            //        rtb1.SaveFile(sfd1.FileName, RichTextBoxStreamType.PlainText);
-        }
+      {
+        Save(this, e);
+      }
+      //if(sfd1.ShowDialog() == DialogResult.OK && sfd1.FileName.Length > 0)
+      //    if(System.IO.Path.GetExtension(sfd1.FileName).ToLower().Equals(".rtf"))
+      //        rtb1.SaveFile(sfd1.FileName);
+      //    else
+      //        rtb1.SaveFile(sfd1.FileName, RichTextBoxStreamType.PlainText);
+    }
         #endregion
 
 		#region Toolbar button click
@@ -734,30 +751,46 @@ namespace Extended.Windows.Forms
 					try
 					{
 						if (ofd1.ShowDialog() == DialogResult.OK && ofd1.FileName.Length > 0)
-							if(System.IO.Path.GetExtension(ofd1.FileName).ToLower().Equals(".rtf")) 
-								rtb1.LoadFile(ofd1.FileName, RichTextBoxStreamType.RichText);
-							else
-								rtb1.LoadFile(ofd1.FileName, RichTextBoxStreamType.PlainText);
-					}
+            {
+              if (System.IO.Path.GetExtension(ofd1.FileName).ToLower().Equals(".rtf"))
+              {
+                rtb1.LoadFile(ofd1.FileName, RichTextBoxStreamType.RichText);
+              }
+              else
+              {
+                rtb1.LoadFile(ofd1.FileName, RichTextBoxStreamType.PlainText);
+              }
+            }
+          }
 					catch (ArgumentException ae)
 					{
 						if(ae.Message == "Invalid file format.")
-							MessageBox.Show("There was an error loading the file: " + ofd1.FileName);				
-					}
+            {
+              MessageBox.Show("There was an error loading the file: " + ofd1.FileName);
+            }
+          }
 					break;
 				case "save":
                     OnSave(new EventArgs()); //send save event
 					break;
 				case "cut":
 				{
-					if(rtb1.SelectedText.Length <= 0) break;
-					rtb1.Cut();
+					if(rtb1.SelectedText.Length <= 0)
+            {
+              break;
+            }
+
+            rtb1.Cut();
 					break;
 				}
 				case "copy":
 				{
-					if(rtb1.SelectedText.Length <= 0) break;
-					rtb1.Copy();
+					if(rtb1.SelectedText.Length <= 0)
+            {
+              break;
+            }
+
+            rtb1.Copy();
 					break;
 				}
 				case "paste":
@@ -798,51 +831,77 @@ namespace Extended.Windows.Forms
 	
 			//Check the correct color
 			foreach(MenuItem mi in cmColors.MenuItems)
-				mi.Checked = (rtb1.SelectionColor == Color.FromName(mi.Text));
-			
-			//Check the correct font
-			foreach(MenuItem mi in cmFonts.MenuItems)
-				mi.Checked = (fnt.FontFamily.Name == mi.Text);
+      {
+        mi.Checked = (rtb1.SelectionColor == Color.FromName(mi.Text));
+      }
 
-			//Check the correct font size
-			foreach(MenuItem mi in cmFontSizes.MenuItems)
-				mi.Checked = ((int)fnt.SizeInPoints == float.Parse(mi.Text));
-		}
+      //Check the correct font
+      foreach (MenuItem mi in cmFonts.MenuItems)
+      {
+        mi.Checked = (fnt.FontFamily.Name == mi.Text);
+      }
+
+      //Check the correct font size
+      foreach (MenuItem mi in cmFontSizes.MenuItems)
+      {
+        mi.Checked = ((int)fnt.SizeInPoints == float.Parse(mi.Text));
+      }
+    }
 		#endregion
 
 		#region Update Toolbar Seperators
 		private void UpdateToolbarSeperators()
 		{
 			//Save & Open
-			if(!tbbSave.Visible && !tbbOpen.Visible) 
-				tbbSeparator3.Visible = false;
-			else
-				tbbSeparator3.Visible = true;
+			if(!tbbSave.Visible && !tbbOpen.Visible)
+      {
+        tbbSeparator3.Visible = false;
+      }
+      else
+      {
+        tbbSeparator3.Visible = true;
+      }
 
-			//Font & Font Size
-			if(!tbbFont.Visible && !tbbFontSize.Visible && !tbbColor.Visible) 
-				tbbSeparator5.Visible = false;
-			else
-				tbbSeparator5.Visible = true;
+      //Font & Font Size
+      if (!tbbFont.Visible && !tbbFontSize.Visible && !tbbColor.Visible)
+      {
+        tbbSeparator5.Visible = false;
+      }
+      else
+      {
+        tbbSeparator5.Visible = true;
+      }
 
-			//Bold, Italic, Underline, & Strikeout
-			if(!tbbBold.Visible && !tbbItalic.Visible && !tbbUnderline.Visible && !tbbStrikeout.Visible)
-				tbbSeparator1.Visible = false;
-			else
-				tbbSeparator1.Visible = true;
+      //Bold, Italic, Underline, & Strikeout
+      if (!tbbBold.Visible && !tbbItalic.Visible && !tbbUnderline.Visible && !tbbStrikeout.Visible)
+      {
+        tbbSeparator1.Visible = false;
+      }
+      else
+      {
+        tbbSeparator1.Visible = true;
+      }
 
-			//Left, Center, & Right
-			if(!tbbLeft.Visible && !tbbCenter.Visible && !tbbRight.Visible)
-				tbbSeparator2.Visible = false;
-			else
-				tbbSeparator2.Visible = true;
+      //Left, Center, & Right
+      if (!tbbLeft.Visible && !tbbCenter.Visible && !tbbRight.Visible)
+      {
+        tbbSeparator2.Visible = false;
+      }
+      else
+      {
+        tbbSeparator2.Visible = true;
+      }
 
-			//Undo & Redo
-			if(!tbbUndo.Visible && !tbbRedo.Visible) 
-				tbbSeparator4.Visible = false;
-			else
-				tbbSeparator4.Visible = true;
-		}
+      //Undo & Redo
+      if (!tbbUndo.Visible && !tbbRedo.Visible)
+      {
+        tbbSeparator4.Visible = false;
+      }
+      else
+      {
+        tbbSeparator4.Visible = true;
+      }
+    }
 		#endregion
 
 		#region RichTextBox Selection Change
@@ -857,8 +916,10 @@ namespace Extended.Windows.Forms
 			
 			//Send the SelChangedEvent
 			if (SelChanged != null)
-				SelChanged(this, e);
-		}
+      {
+        SelChanged(this, e);
+      }
+    }
 		#endregion
 
 		#region Color Click
@@ -1021,8 +1082,11 @@ namespace Extended.Windows.Forms
 				// This must be removed or the designer serialization has a nervous breakdown
 				// when breaking long Rtf strings into multiple lines
 				if (rc.EndsWith("\0"))
-					rc= rc.Substring(0,rc.Length-1);
-				return rc;
+        {
+          rc = rc.Substring(0,rc.Length-1);
+        }
+
+        return rc;
 			}
 			set
 			{
@@ -1031,22 +1095,28 @@ namespace Extended.Windows.Forms
 				{
 					rtb1.Rtf= newRtf;
 					if (RtfChanged!=null)
-						RtfChanged(this,EventArgs.Empty);
-				}
+          {
+            RtfChanged(this,EventArgs.Empty);
+          }
+        }
 			}
 		}
 
 		private void RichTextBoxExtended_Leave(object sender, System.EventArgs e)
 		{
 			if (this.rtb1.Modified && RtfChanged!=null)
-				RtfChanged(this,EventArgs.Empty);
-		}
+      {
+        RtfChanged(this,EventArgs.Empty);
+      }
+    }
 
 		private void rtb1_TextChanged(object sender, System.EventArgs e)
 		{
 			if (RtfChanged!=null)
-				RtfChanged(this,EventArgs.Empty);
-		}
+      {
+        RtfChanged(this,EventArgs.Empty);
+      }
+    }
 
 		/// <summary>
 		///     Show the save button or not
@@ -1418,9 +1488,11 @@ namespace Extended.Windows.Forms
 				&& style != FontStyle.Italic
 				&& style != FontStyle.Strikeout
 				&& style != FontStyle.Underline)
-					throw new  System.InvalidProgramException("Invalid style parameter to ChangeFontStyle");
-			
-			int rtb1start = rtb1.SelectionStart;				
+      {
+        throw new  System.InvalidProgramException("Invalid style parameter to ChangeFontStyle");
+      }
+
+      int rtb1start = rtb1.SelectionStart;				
 			int len = rtb1.SelectionLength; 
 			int rtbTempStart = 0;			
 			
@@ -1429,11 +1501,15 @@ namespace Extended.Windows.Forms
 			{
 				//add or remove style 
 				if (add)
-					rtb1.SelectionFont = new Font(rtb1.SelectionFont, rtb1.SelectionFont.Style | style);
-				else
-					rtb1.SelectionFont = new Font(rtb1.SelectionFont, rtb1.SelectionFont.Style & ~style);
-				
-				return;
+        {
+          rtb1.SelectionFont = new Font(rtb1.SelectionFont, rtb1.SelectionFont.Style | style);
+        }
+        else
+        {
+          rtb1.SelectionFont = new Font(rtb1.SelectionFont, rtb1.SelectionFont.Style & ~style);
+        }
+
+        return;
 			}
 			
 			// Step through the selected text one char at a time	
@@ -1444,10 +1520,14 @@ namespace Extended.Windows.Forms
 
 				//add or remove style 
 				if (add)
-					rtbTemp.SelectionFont = new Font(rtbTemp.SelectionFont, rtbTemp.SelectionFont.Style | style);
-				else
-					rtbTemp.SelectionFont = new Font(rtbTemp.SelectionFont, rtbTemp.SelectionFont.Style & ~style);
-			}
+        {
+          rtbTemp.SelectionFont = new Font(rtbTemp.SelectionFont, rtbTemp.SelectionFont.Style | style);
+        }
+        else
+        {
+          rtbTemp.SelectionFont = new Font(rtbTemp.SelectionFont, rtbTemp.SelectionFont.Style & ~style);
+        }
+      }
 
 			// Replace & reselect
 			rtbTemp.Select(rtbTempStart,len);
@@ -1468,9 +1548,11 @@ namespace Extended.Windows.Forms
 			// fontSize - the fontsize to be applied, eg 33.5
 			
 			if (fontSize <= 0.0)
-				throw new System.InvalidProgramException("Invalid font size parameter to ChangeFontSize");
-			
-			int rtb1start = rtb1.SelectionStart;				
+      {
+        throw new System.InvalidProgramException("Invalid font size parameter to ChangeFontSize");
+      }
+
+      int rtb1start = rtb1.SelectionStart;				
 			int len = rtb1.SelectionLength; 
 			int rtbTempStart = 0;
 
@@ -1557,10 +1639,14 @@ namespace Extended.Windows.Forms
 			{
 				// Return the selection or default font
 				if (rtb1.SelectionFont != null)
-					return rtb1.SelectionFont;
-				else
-					return rtb1.Font;
-			}
+        {
+          return rtb1.SelectionFont;
+        }
+        else
+        {
+          return rtb1.Font;
+        }
+      }
 
 			// Step through the selected text one char at a time	
 			// after setting defaults from first char
@@ -1586,22 +1672,30 @@ namespace Extended.Windows.Forms
 				
 				// Check font
 				if (replyfont != rtbTemp.SelectionFont.FontFamily.Name)
-					replyfont = "";
+        {
+          replyfont = "";
+        }
 
-				// Check font size
-				if (replyfontsize != rtbTemp.SelectionFont.Size)
-					replyfontsize = (float)0.0;
-			}
+        // Check font size
+        if (replyfontsize != rtbTemp.SelectionFont.Size)
+        {
+          replyfontsize = (float)0.0;
+        }
+      }
 
 			// Now set font and size if more than one font or font size was selected
 			if (replyfont == "")
-				replyfont = rtbTemp.Font.FontFamily.Name;
+      {
+        replyfont = rtbTemp.Font.FontFamily.Name;
+      }
 
-			if (replyfontsize == 0.0)
-				replyfontsize = rtbTemp.Font.Size;
+      if (replyfontsize == 0.0)
+      {
+        replyfontsize = rtbTemp.Font.Size;
+      }
 
-			// generate reply font
-			Font reply 
+      // generate reply font
+      Font reply 
 				= new Font(replyfont, replyfontsize, replystyle);
 			
 			return reply;

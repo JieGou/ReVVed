@@ -25,10 +25,14 @@ namespace RVVD
         {
             InitializeComponent();
             if (Properties.Settings.Default.LogFilePath == "none")
-                tb_LogPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            else
-                tb_LogPath.Text = Properties.Settings.Default.LogFilePath;
-        }
+      {
+        tb_LogPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+      }
+      else
+      {
+        tb_LogPath.Text = Properties.Settings.Default.LogFilePath;
+      }
+    }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
@@ -89,17 +93,21 @@ namespace RVVD
             fbd.RootFolder = Environment.SpecialFolder.MyComputer;
             System.Windows.Forms.DialogResult res = fbd.ShowDialog();
             if (res != System.Windows.Forms.DialogResult.OK)
-                return;
+      {
+        return;
+      }
 
-            if (CheckDirectoryAccess(fbd.SelectedPath))
+      if (CheckDirectoryAccess(fbd.SelectedPath))
             {
                 tb_LogPath.Text = fbd.SelectedPath;
                 Properties.Settings.Default.LogFilePath = tb_LogPath.Text;
             }
             else
-                Autodesk.Revit.UI.TaskDialog.Show(LocalizationProvider.GetLocalizedValue<string>("OPT_DIA001_Title"), //Directory error
+      {
+        Autodesk.Revit.UI.TaskDialog.Show(LocalizationProvider.GetLocalizedValue<string>("OPT_DIA001_Title"), //Directory error
                     LocalizationProvider.GetLocalizedValue<string>("OPT_DIA001_MainInstr")); //You do not have permission to write to this directory.
-        }
+      }
+    }
     }
 
     public class SettingBindingExtension : Binding

@@ -47,11 +47,15 @@ namespace RVVD.Polyline
             float x_factor = (float)(pictureBox1.Width - 20) / line_mngr.width;
             float y_factor = (float)(pictureBox1.Height - 20) / line_mngr.height;
             if (x_factor < y_factor)
-                ScaleFactor = Math.Abs(x_factor);
-            else
-                ScaleFactor = Math.Abs(y_factor);
+      {
+        ScaleFactor = Math.Abs(x_factor);
+      }
+      else
+      {
+        ScaleFactor = Math.Abs(y_factor);
+      }
 
-            Xshift = (line_mngr.minX * -1); //used to shift lines left\right to 0,0
+      Xshift = (line_mngr.minX * -1); //used to shift lines left\right to 0,0
             Yshift = (line_mngr.minY * -1); //used to shift lines up\down to 0,0            
         }
 
@@ -101,10 +105,15 @@ namespace RVVD.Polyline
         private void switch_button_Click(object sender, RoutedEventArgs e)
         {
             if (SwitchEnd == 0)
-                SwitchEnd = 1;
-            else
-                SwitchEnd = 0;
-            Redraw();
+      {
+        SwitchEnd = 1;
+      }
+      else
+      {
+        SwitchEnd = 0;
+      }
+
+      Redraw();
         }
 
         private void Update_button_Click_1(object sender, RoutedEventArgs e)
@@ -127,16 +136,20 @@ namespace RVVD.Polyline
         private void length_textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!length_textBox.IsInitialized)
-                return;
+      {
+        return;
+      }
 
-            bool result;
+      bool result;
             double d = 0;
 
             result = UnitFormatUtils.TryParse(adoc.GetUnits(), UnitType.UT_Length, length_textBox.Text, out d);
             if (result)
-                polylineLength = d;
+      {
+        polylineLength = d;
+      }
 
-            update_button.IsEnabled = result;
+      update_button.IsEnabled = result;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

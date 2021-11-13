@@ -13,9 +13,11 @@ namespace RVVD.Merge_Text
             try
             {
                 if (_notesList == null)
-                    return;
-                
-                int lastElement = _notesList.Count;
+        {
+          return;
+        }
+
+        int lastElement = _notesList.Count;
                 int thisElement = 0;
                 bool previousBlockisParagraph = false;
 
@@ -44,8 +46,11 @@ namespace RVVD.Merge_Text
                         if (b is List)
                         {
                             if (thisElement > 1 && !previousBlockisParagraph && !((bool)MT_cb_AddReturns.IsChecked)) //add a space to split adjacent lists
-                                mergedDocument.Blocks.Add(new Paragraph(new Run(" ")));
-                            pkhCommon.WPF.FlowDocumentHelpers.AddBlock(b, mergedDocument);
+              {
+                mergedDocument.Blocks.Add(new Paragraph(new Run(" ")));
+              }
+
+              pkhCommon.WPF.FlowDocumentHelpers.AddBlock(b, mergedDocument);
                             previousBlockisParagraph = false;
                         }
                         else
@@ -57,8 +62,11 @@ namespace RVVD.Merge_Text
                             {
                                 mergedDocument.Blocks.Add(new Paragraph());
                                 if ((bool)MT_cb_PreserveReturns.IsChecked)
-                                    (mergedDocument.Blocks.LastBlock as Paragraph).TextIndent = p.TextIndent;
-                                previousBlockisParagraph = true;
+                {
+                  (mergedDocument.Blocks.LastBlock as Paragraph).TextIndent = p.TextIndent;
+                }
+
+                previousBlockisParagraph = true;
                             }
 
                             foreach (Inline inl in p.Inlines)
@@ -72,14 +80,24 @@ namespace RVVD.Merge_Text
                             }
 
                             if (thisElement != lastElement || thisBlock != lastBlock)
-                                if ((bool)MT_cb_AddPeriods.IsChecked && !endsWithPeriod)
-                                    pkhCommon.WPF.FlowDocumentHelpers.AddInline(new Run(". "), mergedDocument);  //add a period and space where paragraphs used to end
-                                else
-                                    pkhCommon.WPF.FlowDocumentHelpers.AddInline(new Run(" "), mergedDocument);  //add a space where paragraphs used to end
-                            else if (thisElement == lastElement && thisBlock == lastBlock && !endsWithPeriod)
-                                if ((bool)MT_cb_AddPeriods.IsChecked)
-                                    pkhCommon.WPF.FlowDocumentHelpers.AddInline(new Run("."), mergedDocument);  //add a period only where last paragraph used to end
-                        }
+              {
+                if ((bool)MT_cb_AddPeriods.IsChecked && !endsWithPeriod)
+                {
+                  pkhCommon.WPF.FlowDocumentHelpers.AddInline(new Run(". "), mergedDocument);  //add a period and space where paragraphs used to end
+                }
+                else
+                {
+                  pkhCommon.WPF.FlowDocumentHelpers.AddInline(new Run(" "), mergedDocument);  //add a space where paragraphs used to end
+                }
+              }
+              else if (thisElement == lastElement && thisBlock == lastBlock && !endsWithPeriod)
+              {
+                if ((bool)MT_cb_AddPeriods.IsChecked)
+                {
+                  pkhCommon.WPF.FlowDocumentHelpers.AddInline(new Run("."), mergedDocument);  //add a period only where last paragraph used to end
+                }
+              }
+            }
                     }
 
                     if ((bool)MT_cb_AddReturns.IsChecked)
@@ -132,12 +150,18 @@ namespace RVVD.Merge_Text
                 b.ClearValue(Block.FontSizeProperty);
                 b.ClearValue(Block.PaddingProperty);
                 if (b is List)
-                    recurseLists(b as List);
-                else if (b is Paragraph)
-                    recurseParagraph(b as Paragraph);
-                else if (b is Section)
-                    clearFormatting((b as Section).Blocks);
-            }
+        {
+          recurseLists(b as List);
+        }
+        else if (b is Paragraph)
+        {
+          recurseParagraph(b as Paragraph);
+        }
+        else if (b is Section)
+        {
+          clearFormatting((b as Section).Blocks);
+        }
+      }
         }
 
         private void recurseParagraph(Paragraph _para)
@@ -170,19 +194,25 @@ namespace RVVD.Merge_Text
                 foreach (Block b in li.Blocks)
                 {
                     if (b is List)
-                        recurseLists(b as List);
-                    else if (b is Paragraph)
-                        recurseParagraph(b as Paragraph);
-                }
+          {
+            recurseLists(b as List);
+          }
+          else if (b is Paragraph)
+          {
+            recurseParagraph(b as Paragraph);
+          }
+        }
             }
         }
 
         private void ChangeCase()
         {
             if (_caseChanger == null)
-                return;
+      {
+        return;
+      }
 
-            List<Inline> inlines = GetInlines(mergedDocument.Blocks);
+      List<Inline> inlines = GetInlines(mergedDocument.Blocks);
             for (int x = 0; x < inlines.Count; x++)
             {
                 Inline i = inlines[x];
@@ -228,10 +258,14 @@ namespace RVVD.Merge_Text
                 foreach (Block b in li.Blocks)
                 {
                     if (b is List)
-                        inlines.AddRange(getInlinesFromList(b as List));
-                    else if (b is Paragraph)
-                        inlines.AddRange((b as Paragraph).Inlines);
-                }
+          {
+            inlines.AddRange(getInlinesFromList(b as List));
+          }
+          else if (b is Paragraph)
+          {
+            inlines.AddRange((b as Paragraph).Inlines);
+          }
+        }
             }
             return inlines;
         }

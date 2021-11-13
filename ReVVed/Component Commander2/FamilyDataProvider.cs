@@ -51,8 +51,10 @@ namespace RVVD.Component_Commander2
         public void OnPropertyChanged(PropertyChangedEventArgs e)
         {
             if (PropertyChanged != null)
-                PropertyChanged(this, e);
-        }
+      {
+        PropertyChanged(this, e);
+      }
+    }
 
         public FamilyDataProvider(Document d)
         {
@@ -138,16 +140,21 @@ namespace RVVD.Component_Commander2
                         bitmap = new System.Drawing.Bitmap(stor.ThumbnailImage.GetPreviewAsImage());
                     }
                     else
-                        bitmap = et.GetPreviewImage(new System.Drawing.Size(128, 128));
-                }
+          {
+            bitmap = et.GetPreviewImage(new System.Drawing.Size(128, 128));
+          }
+        }
 
                 if (bitmap == null)
-                    PreviewImage = null;
-                else
-                    PreviewImage = pkhCommon.WPF.Converters.BitmapToBitmapSource.ToBitmapSource(bitmap);
+        {
+          PreviewImage = null;
+        }
+        else
+        {
+          PreviewImage = pkhCommon.WPF.Converters.BitmapToBitmapSource.ToBitmapSource(bitmap);
+        }
 
-
-                foreach (Parameter p in et.GetOrderedParameters())
+        foreach (Parameter p in et.GetOrderedParameters())
                 {
                     ParameterInfo pi = new ParameterInfo()
                     {

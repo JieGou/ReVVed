@@ -47,17 +47,24 @@ namespace RVVD.Component_Commander2
             FamilyDataProvider = fdp;
             FamilyPanel.DataContext = FamilyDataProvider;
             if (System.IO.File.Exists(CoCoPath + "favorites2.xml"))
-                favorites.ReadXml(CoCoPath + "favorites2.xml");
-            else
+      {
+        favorites.ReadXml(CoCoPath + "favorites2.xml");
+      }
+      else
             {
                 if (!Directory.Exists(CoCoPath))
-                    Directory.CreateDirectory(CoCoPath);
-                File.CreateText(CoCoPath + "favorites2.xml");
+        {
+          Directory.CreateDirectory(CoCoPath);
+        }
+
+        File.CreateText(CoCoPath + "favorites2.xml");
             }
             FavoritesTree.ItemsSource = favorites.Categories.DefaultView;
             if (startDetailTab)
-                tabscontrol.SelectedIndex = 1; //set to detail component tab if opening from a drafting view
-        }
+      {
+        tabscontrol.SelectedIndex = 1; //set to detail component tab if opening from a drafting view
+      }
+    }
 
         #region Functions
         private void SetButtons()
@@ -65,13 +72,19 @@ namespace RVVD.Component_Commander2
             foreach (Button bt in ButtonPanel.Children)
             {
                 if (bt == null || bt.Tag == null)
-                    continue;
+        {
+          continue;
+        }
 
-                if ((Discipline)bt.Tag == ViewDiscipline)
-                    bt.IsEnabled = false;
-                else
-                    bt.IsEnabled = true;
-            }
+        if ((Discipline)bt.Tag == ViewDiscipline)
+        {
+          bt.IsEnabled = false;
+        }
+        else
+        {
+          bt.IsEnabled = true;
+        }
+      }
         }
 
         /// <summary>
@@ -161,9 +174,12 @@ namespace RVVD.Component_Commander2
             BindingListCollectionView Tree_BLCV = null;
             Tree_BLCV = CollectionViewSource.GetDefaultView(ComponentTree.ItemsSource) as BindingListCollectionView;
             if (Tree_BLCV != null)
-                Tree_BLCV.SortDescriptions.Add(
+      {
+        Tree_BLCV.SortDescriptions.Add(
                     new System.ComponentModel.SortDescription("LocalizedName", System.ComponentModel.ListSortDirection.Ascending));
-            FilterControl_Filter(null, null);
+      }
+
+      FilterControl_Filter(null, null);
             SetButtons();
 
             this.Width = Properties.Settings.Default.COCO2_Width;
@@ -210,13 +226,17 @@ namespace RVVD.Component_Commander2
                             }
                         }
                         else
-                            catVis = true;
-                    }
+            {
+              catVis = true;
+            }
+          }
                 }
                 else
-                    catVis = true;
+        {
+          catVis = true;
+        }
 
-                if (!CategoryIsInActiveDiscipline((int)drv.Row["ID"]))
+        if (!CategoryIsInActiveDiscipline((int)drv.Row["ID"]))
                 {
                     drv.Row["Show"] = false;
                     drv.Row.AcceptChanges();
@@ -278,9 +298,11 @@ namespace RVVD.Component_Commander2
                 favorites.Categories.AcceptChanges();
             }
             else
-                parentRow = dr[0] as FavoriteDataSet.CategoriesRow;
+      {
+        parentRow = dr[0] as FavoriteDataSet.CategoriesRow;
+      }
 
-            FavoriteDataSet.FavoritesRow fr = favorites.Favorites.NewRow() as FavoriteDataSet.FavoritesRow;
+      FavoriteDataSet.FavoritesRow fr = favorites.Favorites.NewRow() as FavoriteDataSet.FavoritesRow;
             fr.Name = FamilyDataProvider.Name;
             fr.ParentID = parentRow.ID;
             fr.FilePath = FamilyDataProvider.FilePath;
@@ -300,8 +322,11 @@ namespace RVVD.Component_Commander2
             drv.Delete();
             dr.AcceptChanges();
             if (dr.GetChildRows("Categories_Favorites").Count() == 0)
-                dr.Delete();
-            favorites.AcceptChanges();
+      {
+        dr.Delete();
+      }
+
+      favorites.AcceptChanges();
         }
 
         private void FolderButton_Click(object sender, RoutedEventArgs e)
@@ -393,8 +418,11 @@ namespace RVVD.Component_Commander2
                         drv.Delete();
                         dr.AcceptChanges();
                         if (dr.GetChildRows("Categories_Favorites").Count() == 0)
-                            dr.Delete();
-                        favorites.AcceptChanges();
+            {
+              dr.Delete();
+            }
+
+            favorites.AcceptChanges();
                     }
                 }
             }
